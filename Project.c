@@ -28,7 +28,7 @@ void login() {
 
     int voterID;
     int inputvoterID;
-    
+    int found=0;
     
     FILE *file;
 
@@ -40,18 +40,7 @@ void login() {
         printf("Error opening file.\n");
       
     }
-
-    
-    if (fscanf(file, "%d", &voterID) != 1) 
-	{
-        
-		printf("Error reading voter ID from file.\n");
-        fclose(file);
-        
-        
-        
-    }
-    fclose(file);
+	
           top:
     printf("\t\t\t###########################################################################");
     printf("\n\t\t\t############                                                   ############");
@@ -65,13 +54,19 @@ void login() {
     
 system("cls");
     
-    if (inputvoterID == voterID) 
-	{
-		
+while (fscanf(file, "%d", &voterID) == 1) {
+        if (inputvoterID == voterID) {
+            found = 1;
+            break; 
+        }
+    }
+
+    fclose(file);
+
+    if (found) {
         printf("Login successful!\n");
-        
-		 sleep(2);
-         	system("cls");
+        sleep(2);
+        system("clear");
          	
         int choice;  
 
@@ -103,17 +98,12 @@ system("cls");
             case 0: break; 
             default: printf("\n Error: Invalid Choice");
             sleep(4);
-     system("cls");
-            login();
-            
+     system("cls");           
             
             
         }
         
-    }
-	
-	
-	 while(choice != 0);
+    }while(choice != 0);
     getchar();
    
 }
@@ -133,8 +123,7 @@ system("cls");
 
  sleep(4);
      system("cls");
-
-        login();
+goto top;
     }
     }
 
@@ -226,3 +215,4 @@ int main()
    
     login();
 } 
+
